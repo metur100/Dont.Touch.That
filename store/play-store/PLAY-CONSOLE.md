@@ -3,18 +3,15 @@
 Everything needed to create and publish **Don't Touch That!** in the Play Console, in the order the Console asks for it.
 Files referenced below are in this folder (`store/play-store/`).
 
-> **Before you start:** set your support email and website in `store/_tools/content.mjs` (`CONTACT`), publish `store/site/`
-> (privacy policy + support page) and run `node store/_tools/docs.mjs` again. Both stores require a reachable privacy policy URL.
-
 | | |
 | --- | --- |
-| Package name | `com.medinturkes.donttouchthat` |
+| Package name | `com.certidevelopment.donttouchthat` |
 | Version | 1.0.0 (version code 1) |
 | Upload file | `android/app/build/outputs/bundle/release/app-release.aab` (see *6. Build the release*) |
 | Upload key | `C:\Users\TurkesMedin\keystore\donttouchthat`, alias `donttouchthat.key` (create it in step 6) |
-| Privacy policy | https://YOUR-GITHUB-USER.github.io/dont-touch-that/privacy.html |
-| Website | https://YOUR-GITHUB-USER.github.io/dont-touch-that |
-| Contact email | YOUR-SUPPORT-EMAIL@example.com |
+| Privacy policy | https://metur100.github.io/Dont.Touch.That.Landing/privacy.html |
+| Website | https://metur100.github.io/Dont.Touch.That.Landing |
+| Contact email | certidevelopment@gmail.com |
 | Target audience | 13–15, 16–17, 18+ |
 
 ## 1. Create app
@@ -105,15 +102,15 @@ Upload the screenshots in file-name order (01 … 08). Tablet screenshots are op
 
 - **App category:** Game → **Casual**
 - **Tags** (up to 5): Casual, Puzzle, Arcade, Offline, Single player
-- **Email address:** YOUR-SUPPORT-EMAIL@example.com
-- **Website:** https://YOUR-GITHUB-USER.github.io/dont-touch-that
+- **Email address:** certidevelopment@gmail.com
+- **Website:** https://metur100.github.io/Dont.Touch.That.Landing
 - **Phone number:** leave empty (optional)
 - **External marketing:** allowed (default)
 
 ## 4. App content (Policy → App content)
 
 ### Privacy policy
-https://YOUR-GITHUB-USER.github.io/dont-touch-that/privacy.html
+https://metur100.github.io/Dont.Touch.That.Landing/privacy.html
 
 ### App access
 **All functionality in my app is available without any access restrictions.** (No login, no account.)
@@ -123,7 +120,7 @@ https://YOUR-GITHUB-USER.github.io/dont-touch-that/privacy.html
 
 ### Content rating
 Start the IARC questionnaire:
-- **Email:** YOUR-SUPPORT-EMAIL@example.com
+- **Email:** certidevelopment@gmail.com
 - **Category:** **Game**
 - Violence: **No.** (Cartoon emoji such as 💣 or 💥 appear as a joke when you fail; nobody and nothing is hurt.)
 - Fear/horror, sexuality, nudity, language/profanity, crude humour, drugs/alcohol/tobacco, discrimination: **No** to every question.

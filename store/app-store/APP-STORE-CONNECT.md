@@ -3,19 +3,16 @@
 Everything needed to publish **Don't Touch That!** on the App Store, in the order App Store Connect asks for it.
 Files referenced below are in this folder (`store/app-store/`).
 
-> **Before you start:** set your support email and website in `store/_tools/content.mjs` (`CONTACT`), publish `store/site/`
-> (privacy policy + support page) and run `node store/_tools/docs.mjs` again. Both stores require a reachable privacy policy URL.
-
 | | |
 | --- | --- |
-| Bundle ID | `com.medinturkes.donttouchthat` |
+| Bundle ID | `com.certidevelopment.donttouchthat` |
 | SKU | `DONTTOUCHTHAT001` |
 | Version | 1.0.0 (build number set automatically by EAS) |
 | Primary language | English (U.S.) |
 | Price | Free (all countries) |
-| Contact / support email | YOUR-SUPPORT-EMAIL@example.com |
-| Privacy Policy URL | https://YOUR-GITHUB-USER.github.io/dont-touch-that/privacy.html |
-| Support / Marketing URL | https://YOUR-GITHUB-USER.github.io/dont-touch-that |
+| Contact / support email | certidevelopment@gmail.com |
+| Privacy Policy URL | https://metur100.github.io/Dont.Touch.That.Landing/privacy.html |
+| Support / Marketing URL | https://metur100.github.io/Dont.Touch.That.Landing |
 
 ## 1. Build and upload (from this PC, no Mac needed)
 
@@ -28,7 +25,7 @@ npx eas-cli@latest submit -p ios --profile production --latest
 ```
 
 Answers the first build asks: log in to Apple → **Yes**; choose your team; generate Distribution Certificate → **Yes**; generate Provisioning Profile → **Yes**; Push Notifications → **No** (the game has no notifications).
-The first `submit` creates the app record in App Store Connect if it does not exist yet (or create it first: *Apps → + → New App*, platform iOS, name `Don't Touch That!`, bundle ID `com.medinturkes.donttouchthat`, SKU `DONTTOUCHTHAT001`, full access).
+The first `submit` creates the app record in App Store Connect if it does not exist yet (or create it first: *Apps → + → New App*, platform iOS, name `Don't Touch That!`, bundle ID `com.certidevelopment.donttouchthat`, SKU `DONTTOUCHTHAT001`, full access).
 After Apple has processed the build (5–30 minutes) it appears under **TestFlight**.
 
 ## 2. App Information (General → App Information)
@@ -60,7 +57,7 @@ Resist the big red button
 
 ## 4. App Privacy
 
-- **Privacy Policy URL:** https://YOUR-GITHUB-USER.github.io/dont-touch-that/privacy.html
+- **Privacy Policy URL:** https://metur100.github.io/Dont.Touch.That.Landing/privacy.html
 - **Data Collection → Get Started:** **“No, we do not collect data from this app.”** → Publish.
   The App Store then shows **“Data Not Collected”**.
 
@@ -75,6 +72,20 @@ Resist the big red button
 | iPhone 6.3" Display (optional) | `screenshots/iphone-6.3/` | 1206 × 2622 | 8 |
 
 Drag the files in name order (01 … 08). iPad screenshots are **not** needed (the game is iPhone-only: `supportsTablet: false`).
+App Store Connect only asks for iPad screenshots once a build that supports iPad is attached. If the iPad section is shown before
+the build is uploaded, attach the build first; the iPad requirement disappears.
+
+### Header artwork (optional, "Kopfzeilen-Inhalt")
+
+Shown as the large banner at the top of the product page and in search results. Optional, but recommended.
+Rendered by `node store/_tools/render.mjs --header` (no alpha channel, content kept in the centre so every crop works):
+
+| Asset | File | Size |
+| --- | --- | --- |
+| Universal (header **and** search results) – use this one | `header/header-16x9.png` | 5244 × 2950 |
+| Product page header only | `header/header-21x9.png` | 3840 × 1646 |
+
+Upload `header-16x9.png`, check both crops in the preview (header 21:9, search 3:2) and enable it for search results too.
 
 ### Texts
 
@@ -129,13 +140,13 @@ FAIR AND PRIVATE
 Whatever you do... DON'T TOUCH THAT.
 ```
 
-- **Support URL:** https://YOUR-GITHUB-USER.github.io/dont-touch-that · **Marketing URL:** https://YOUR-GITHUB-USER.github.io/dont-touch-that
+- **Support URL:** https://metur100.github.io/Dont.Touch.That.Landing · **Marketing URL:** https://metur100.github.io/Dont.Touch.That.Landing
 - **Version:** 1.0.0
 - **Copyright:** `2026 Medin Turkes`
 - **Build:** choose the build uploaded with `eas submit` (+ Add Build). Export compliance is answered automatically (`ITSAppUsesNonExemptEncryption = NO`).
 - **App Review Information:**
   - Sign-in required: **No**
-  - Contact: Medin Turkes, YOUR-SUPPORT-EMAIL@example.com, phone: **your phone number** (required by Apple, not shown publicly)
+  - Contact: Medin Turkes, certidevelopment@gmail.com, phone: **your phone number** (required by Apple, not shown publicly)
   - Notes:
 ```text
 No account or login is needed; everything works offline. The app has no ads, no in-app purchases, no analytics and no tracking.

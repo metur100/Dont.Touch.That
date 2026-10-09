@@ -5,8 +5,11 @@
  *   play-store/graphics/feature-graphic.png        1024 × 500 (no alpha)
  *   play-store/screenshots/phone/NN.png            1080 × 1920
  *   app-store/screenshots/iphone-6.9/NN.png        1320 × 2868 (+ 6.5" 1284 × 2778, 6.3" 1206 × 2622)
+ *   app-store/header/header-21x9.png              3840 × 1646 (product page header, no alpha)
+ *   app-store/header/header-16x9.png              5244 × 2950 (header + search results, no alpha)
  * Uses headless Microsoft Edge for layout and ffmpeg for exact sizing.
- * Usage: node store/_tools/render.mjs
+ * Usage: node store/_tools/render.mjs            (everything)
+ *        node store/_tools/render.mjs --header   (only the App Store header artwork)
  */
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -110,13 +113,51 @@ function featureGraphic(shot) {
   <div class="ph"><div class="frame"><img src="${shot.url}"></div></div></div></body></html>`;
 }
 
+/**
+ * App Store header artwork. All content sits in a centred 1500 × 760 box (CSS px) so the 16:9 version
+ * survives both crops App Store Connect applies to it (21:9 header, 3:2 search result).
+ */
+function headerArt([left, main, right], cssW, cssH) {
+  const phone = (shot, h) => `<div class="frame" style="width:${Math.round(h / shot.aspect)}px"><img src="${shot.url}"></div>`;
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}
+  body { width: ${cssW}px; height: ${cssH}px; }
+  .safe { position: absolute; left: 50%; top: 50%; width: 1500px; height: 760px; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 40px; }
+  .copy { flex: 0 0 640px; }
+  .icon { width: 150px; border-radius: 34px; box-shadow: 0 16px 36px rgba(43,27,74,.3); }
+  h1 { font-size: 112px; margin-top: 22px; } .sub { font-size: 38px; margin-top: 14px; }
+  .phones { position: relative; flex: 1; height: 760px; filter: drop-shadow(0 34px 44px rgba(43, 27, 74, .3)); }
+  .phones .frame { position: relative; left: auto; top: auto; transform: none; padding: 10px; border-radius: 44px; box-shadow: none; }
+  .frame img { border-radius: 35px; }
+  .p-main { z-index: 3; transform: translate(-50%, -50%); }
+  .p-left { z-index: 2; transform: translate(-108%, -46%) rotate(-9deg) scale(.86); }
+  .p-right { z-index: 1; transform: translate(8%, -46%) rotate(9deg) scale(.86); }
+  .deco { font-size: 80px; }
+  </style></head><body><div class="dots"></div><div class="safe">
+  <div class="copy"><img class="icon" src="${ICON}"><h1>Don't<br>Touch That!</h1><div class="sub">100 levels. One rule.<br>You will break it.</div></div>
+  <div class="phones">
+    <div class="p-left" style="position:absolute;left:50%;top:50%">${phone(left, 620)}</div>
+    <div class="p-right" style="position:absolute;left:50%;top:50%">${phone(right, 620)}</div>
+    <div class="p-main" style="position:absolute;left:50%;top:50%">${phone(main, 700)}</div>
+    <span class="deco" style="left:4%;top:6%">🔴</span><span class="deco" style="right:0;top:2%">🐔</span><span class="deco" style="right:4%;bottom:4%">💣</span>
+  </div></div></body></html>`;
+}
+
 // ---------- Run ----------
 const rawDir = (set) => path.join(STORE, 'raw', set);
 const shots = fs.readdirSync(rawDir('phone')).filter((f) => /^\d\d-.*\.png$/.test(f)).sort();
 if (shots.length !== CAPTIONS.length) throw new Error(`expected ${CAPTIONS.length} raw shots, found ${shots.length}`);
 
-const cropped = shots.map((f) => cropBars(path.join(rawDir('phone'), f), 'phone', 1920));
 const tall = shots.map((f) => cropBars(path.join(rawDir('tall'), f), 'tall', 2346));
+const headerShots = [tall[3], tall[1], tall[5]];
+render(headerArt(headerShots, 1920, 823), 3840, 1646, path.join(STORE, 'app-store', 'header', 'header-21x9.png'), 2);
+render(headerArt(headerShots, 1920, 1080), 5244, 2950, path.join(STORE, 'app-store', 'header', 'header-16x9.png'), 5244 / 1920);
+console.log('rendered App Store header artwork');
+if (process.argv.includes('--header')) {
+  fs.rmSync(TMP, { recursive: true, force: true });
+  process.exit(0);
+}
+
+const cropped = shots.map((f) => cropBars(path.join(rawDir('phone'), f), 'phone', 1920));
 shots.forEach((file, i) => {
   const name = `${String(i + 1).padStart(2, '0')}.png`;
   render(screenshot(cropped[i], CAPTIONS[i], 1080, 1920), 1080, 1920, path.join(STORE, 'play-store', 'screenshots', 'phone', name));

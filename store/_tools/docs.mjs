@@ -35,8 +35,8 @@ function write(rel, text) {
 }
 
 const todo = PLACEHOLDERS
-  ? `> **Before you start:** set your support email and website in \`store/_tools/content.mjs\` (\`CONTACT\`), publish \`store/site/\`
-> (privacy policy + support page) and run \`node store/_tools/docs.mjs\` again. Both stores require a reachable privacy policy URL.\n\n`
+  ? `> **Before you start:** set your support email and website in \`store/_tools/content.mjs\` (\`CONTACT\`), publish the website
+> (separate repo Dont.Touch.That.Landing: privacy policy + support page) and run \`node store/_tools/docs.mjs\` again. Both stores require a reachable privacy policy URL.\n\n`
   : '';
 
 // ---------- Google Play ----------
@@ -276,6 +276,20 @@ ${block('Subtitle', IOS.subtitle, 30)}
 | iPhone 6.3" Display (optional) | \`screenshots/iphone-6.3/\` | 1206 × 2622 | 8 |
 
 Drag the files in name order (01 … 08). iPad screenshots are **not** needed (the game is iPhone-only: \`supportsTablet: false\`).
+App Store Connect only asks for iPad screenshots once a build that supports iPad is attached. If the iPad section is shown before
+the build is uploaded, attach the build first; the iPad requirement disappears.
+
+### Header artwork (optional, "Kopfzeilen-Inhalt")
+
+Shown as the large banner at the top of the product page and in search results. Optional, but recommended.
+Rendered by \`node store/_tools/render.mjs --header\` (no alpha channel, content kept in the centre so every crop works):
+
+| Asset | File | Size |
+| --- | --- | --- |
+| Universal (header **and** search results) – use this one | \`header/header-16x9.png\` | 5244 × 2950 |
+| Product page header only | \`header/header-21x9.png\` | 3840 × 1646 |
+
+Upload \`header-16x9.png\`, check both crops in the preview (header 21:9, search 3:2) and enable it for search results too.
 
 ### Texts
 
@@ -302,12 +316,5 @@ Then **Add for Review → Submit to App Review**.
 ${IOS.releaseNotes}
 \`\`\`
 `);
-
-// ---------- Website (privacy policy + support page): keep the contact email in sync ----------
-for (const page of ['site/index.html', 'site/privacy.html']) {
-  const file = path.join(STORE, page);
-  const html = fs.readFileSync(file, 'utf8');
-  fs.writeFileSync(file, html.replace(/(mailto:)[^"]+("[^>]*>)[^<]+(<\/a>)/g, `$1${CONTACT.email}$2${CONTACT.email}$3`));
-}
 
 console.log(`docs written${PLACEHOLDERS ? ' (contact placeholders still set in content.mjs)' : ''}`);

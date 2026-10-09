@@ -5,9 +5,8 @@
 export const STUDIO: { name: string; tagline: string; website?: string; privacyUrl?: string } = {
   name: 'Medin Turkes',
   tagline: 'Small games. Big feelings. Occasional buttons.',
-  // TODO before release: set the website and hosted privacy policy URL (links stay hidden until set).
-  website: undefined,
-  privacyUrl: undefined,
+  website: 'https://metur100.github.io/Dont.Touch.That.Landing',
+  privacyUrl: 'https://metur100.github.io/Dont.Touch.That.Landing/privacy.html',
 };
 
 export interface OtherGame {

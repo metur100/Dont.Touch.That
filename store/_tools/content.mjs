@@ -4,15 +4,15 @@
 export const CONTACT = {
   name: 'Medin Turkes',
   /** Required by both stores (support contact, shown publicly on Google Play). */
-  email: 'YOUR-SUPPORT-EMAIL@example.com',
-  /** Where you host store/site/ (e.g. GitHub Pages). Privacy policy = `${site}/privacy.html`. */
-  site: 'https://YOUR-GITHUB-USER.github.io/dont-touch-that',
+  email: 'certidevelopment@gmail.com',
+  /** Website (separate repo metur100/Dont.Touch.That.Landing, GitHub Pages). Privacy policy = `${site}/privacy.html`. */
+  site: 'https://metur100.github.io/Dont.Touch.That.Landing',
 };
 
 export const APP = {
   name: "Don't Touch That!",
-  androidPackage: 'com.medinturkes.donttouchthat',
-  iosBundleId: 'com.medinturkes.donttouchthat',
+  androidPackage: 'com.certidevelopment.donttouchthat',
+  iosBundleId: 'com.certidevelopment.donttouchthat',
   sku: 'DONTTOUCHTHAT001',
   version: '1.0.0',
   copyright: `2026 ${CONTACT.name}`,

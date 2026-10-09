@@ -10,7 +10,7 @@
     "backgroundColor": "#FFF4E0",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.medinturkes.donttouchthat",
+      "bundleIdentifier": "com.certidevelopment.donttouchthat",
       "buildNumber": "1",
       "config": {
         "usesNonExemptEncryption": false
@@ -20,7 +20,7 @@
       }
     },
     "android": {
-      "package": "com.medinturkes.donttouchthat",
+      "package": "com.certidevelopment.donttouchthat",
       "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#FFF4E0",
@@ -69,6 +69,12 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "22078912-bc23-486b-91b9-57d05951246b"
+      }
+    },
+    "owner": "certi-development"
   }
 }
